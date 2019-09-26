@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const path = require('path');
 const apiRoutes = require('./api-routes.js');
@@ -11,7 +12,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost/musesnwc', { 
+mongoose.connect(process.env.MONGODB_URL, { 
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 });
