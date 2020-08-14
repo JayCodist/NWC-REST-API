@@ -17,9 +17,9 @@
 	<main>
 		<section>
 			<h1 class="blue">Welcome. . .</h1>
-			<h3 class="blue">This is the REST API docummentation for the #team-muses Net Worth Calculator built using Express and MongoDB with MVC architecture (minus the V :-) )</h3>
+			<h3 class="blue">This is the REST API docummentation for Net Worth Calculator built using Express and MongoDB</h3>
 
-			<h3 class="blue">To test locally, apply the following steps</h3>
+			<h3 class="blue">To test locally, follow these steps</h3>
 			<ul>
 				<li>Clone repo to your machine using <span class="code">git clone</span></li>
 				<li>Run <span class="code">npm install</span> to install dependencies</li>
@@ -27,18 +27,18 @@
 				<li>Console should show <span class="code">Db connected successfully</span> and <span class="code">API running on port 3000</span></li>
 				<li>The API is all set up. You can start making requests</li>
 			</ul>
-			<p>Note: You do not have to test locally, the api is hosted on <a href="https://muses-nwc-api.herokuapp.com/">https://muses-nwc-api.herokuapp.com/</a> and you can make requests to that url</p>
+			<p>Note: You do not have to test locally, the api is hosted on <a href="https://net-worth-calc-api.herokuapp.com/">https://net-worth-calc-api.herokuapp.com/</a> and you can make requests to that url</p>
 
 			<br />
 			<h2 class="blue" id="operations">API Operations</h2>
 			<h4>The API allows you to signup, login and (while logged in) perform CRUD (create, read, update and delete) operations on a set of financial <span class="code">items</span> on your account</h4>
-			<em><strong>Note:</strong> In all the examples, you could substitute <span class="code">http://localhost:3000</span> with the <a href="https://muses-nwc-api.herokuapp.com/">hosted API url</a>, if you are not testing locally</em> <br />
+			<!-- <em><strong>Note:</strong> In all the examples, you could substitute <span class="code">https://net-worth-calc-api.herokuapp.com</span> with the <a href="https://muses-nwc-api.herokuapp.com/">hosted API url</a>, if you are not testing locally</em> <br /> -->
 			<br /></section>
-			<em><strong>Note:</strong> In all the examples, handling of data returned by <span class="code">fetch()</span> has been omitted for sake of clarity. A more complete request is usually in the form <span class="code">fetch(...).then(data => data.json()).then(jsonData => // use jsonData here )</span></em>
+			<!-- <em><strong>Note:</strong> In all the examples, handling of data returned by <span class="code">fetch()</span> has been omitted for sake of clarity. A more complete request is usually in the form <span class="code">fetch(...).then(data => data.json()).then(jsonData => // use jsonData here )</span></em> -->
 			<h4>To signup, send</h4>
 			<code>
 let data = {"name": "Johnson", "email": "jaycodist@gmail.com", "password": "devlin"};
-fetch("http://localhost:3000/api/signup",
+fetch("https://net-worth-calc-api.herokuapp.com/api/signup",
   {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     headers: 
@@ -61,17 +61,17 @@ fetch("http://localhost:3000/api/signup",
 	}
 }
 			</code>
-				<em id="note">
+				<!-- <em id="note">
 					<strong>Note:</strong> The token could already be used to access your account. There's no need to login immediately after a signup. To use the token, you could save to localStorage: 
 					<span class="code">window.localStorage.setItem("auth_token", token)</span>
 					and attach it as header to your future requests: 
 					<span class="code">'Authorization': 'Bearer ' + (localStorage.getItem("auth_token") || '')</span> and logging out could simply be done via <span class="code">localStorage.removeItem("auth_token")</span> at the frontend.
 					<br />See examples below for more information
-				</em>
+				</em> -->
 			<h4>To login, send</h4>
 						<code>
 let data = {"email": "jaycodist@gmail.com", "password": "devlin"};
-fetch("http://localhost:3000/api/login",
+fetch("https://net-worth-calc-api.herokuapp.com/api/login",
   {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     headers: 
@@ -118,14 +118,14 @@ fetch("http://localhost:3000/api/login",
 			</ul>
 			<h4>To see the <span class="code">items</span> on your account, send</h4>
 			<code>
-fetch("http://localhost:3000/api/items",
+fetch("https://net-worth-calc-api.herokuapp.com/api/items",
   {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     headers: 
     {
       'Content-Type': 'application/json',
       'Origin': 'muse-client'
-      'Authorization': 'Bearer ' + (localStorage.getItem("auth_token") || '')
+      'Authorization': 'Bearer ' + authToken
     }
   })
 			</code>
@@ -151,14 +151,14 @@ fetch("http://localhost:3000/api/items",
 	<h4>To add new <span class="code">item</span> to your account, send</h4>
 			<code>
 let data = {"type": "ASSET", "description": "Car", "value": 5000000};
-fetch("http://localhost:3000/api/items",
+fetch("https://net-worth-calc-api.herokuapp.com/api/items",
   {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     headers: 
     {
       'Content-Type': 'application/json',
       'Origin': 'muse-client'
-      'Authorization': 'Bearer ' + (localStorage.getItem("auth_token") || '')
+      'Authorization': 'Bearer ' + authToken
     },
     body: JSON.stringify(data)
   })
@@ -181,14 +181,14 @@ fetch("http://localhost:3000/api/items",
 			<code>
 let item_id = "as45ew434hj54er8eu43"; // The id of the item already received from the server
 let data = {"value": 45000000, item_id}; // New values for some properties
-fetch("http://localhost:3000/api/items",
+fetch("https://net-worth-calc-api.herokuapp.com/api/items",
   {
     method: 'PUT', // *GET, POST, PUT, DELETE, etc.
     headers: 
     {
       'Content-Type': 'application/json',
       'Origin': 'muse-client'
-      'Authorization': 'Bearer ' + (localStorage.getItem("auth_token") || '')
+      'Authorization': 'Bearer ' + authToken
     },
     body: JSON.stringify(data)
   })
@@ -211,14 +211,14 @@ fetch("http://localhost:3000/api/items",
 			<code>
 let item_id = "as45ew434hj54er8eu43"; // The id of the item already received from the server
 let data = {item_id};
-fetch("http://localhost:3000/api/items",
+fetch("https://net-worth-calc-api.herokuapp.com/api/items",
   {
     method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
     headers: 
     {
       'Content-Type': 'application/json',
       'Origin': 'muse-client'
-      'Authorization': 'Bearer ' + (localStorage.getItem("auth_token") || '')
+      'Authorization': 'Bearer ' + authToken
     },
     body: JSON.stringify(data)
   })
@@ -230,11 +230,10 @@ fetch("http://localhost:3000/api/items",
 	newItemsCount: 0	// The number of items left on your account after deletion
 }
 			</code>
-			<p class="center">Have fun!</p>
 		</section>
 	</main>
 	<footer>
-		<strong>&copy 2019</strong>, Team-Muses Backend
+		<strong>&copy 2019</strong>, Johnson Ubaezuonu
 		<br />
 		<br />
 		<a href="#"><strong>Back to top</strong></a>
